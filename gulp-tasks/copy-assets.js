@@ -3,7 +3,7 @@ module.exports = function(gulp, plugins, config) {
         gulp.src(config.assets.src)
             .pipe(gulp.dest(config.assets.dest));
             
-        // gulp.src(config.messages)
-        //     .pipe(gulp.dest(config.messagesOutput));            
+        gulp.src(config.messages)
+            .pipe(gulp.dest(config.messagesOutput));            
     }
 };

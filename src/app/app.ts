@@ -1,10 +1,13 @@
-///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
+///<reference path="../../node_modules/typescript/lib/lib.es6.d.ts"/>
 
-import { Component } from 'angular2/core';
+import { Component, provide, enableProdMode } from '@angular/core';
+import { RouterConfig, ROUTER_DIRECTIVES, provideRouter } from '@angular/router';
+import {HashLocationStrategy, LocationStrategy, Location} from '@angular/common';
+import { HTTP_PROVIDERS } from '@angular/http';
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import { ArticleComponent } from './article/article.component';
 import { Article } from './article/article.model';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
-
+import { bootstrap } from '@angular/platform-browser-dynamic';
 
 @Component({
   selector: 'app',
@@ -59,3 +62,10 @@ export class App {
   }
 
 }
+
+enableProdMode();
+document.addEventListener("DOMContentLoaded", function(event) {
+    bootstrap(App, [disableDeprecatedForms(), provideForms(), HTTP_PROVIDERS, 
+				provide(LocationStrategy, {useClass: HashLocationStrategy})])
+      .catch(err => console.error(err));
+});
